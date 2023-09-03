@@ -1,8 +1,12 @@
+<?php
+require 'function.php'; // Mengimpor file koneksi
+?>
+
 <!DOCTYPE html>
 <html >
 <head>
   <meta charset="UTF-8">
-  <title>Web Gudang | Login</title>
+  <title>Web Inventory | Login</title>
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="<?= base_url()?>/assets/fontawesome/css/font-awesome.min.css">
@@ -17,7 +21,7 @@
       body {
   font-family: "Open Sans", sans-serif;
   height: 100vh;
-  background: url("https://i.imgur.com/HgflTDf.jpg") 50% fixed;
+  background: url("https://img.freepik.com/free-photo/portrait-asian-woman-business-owner-using-digital-tablet-checking-amount-stock-product-inventory-shelf-distribution-warehouse-factorylogistic-business-shipping-delivery-service_609648-2011.jpg?w=740&t=st=1692999440~exp=1693000040~hmac=3d6288a55c3e7d1440a0f45284d640f5b0b8d6bacac368c70a97dca65bf71dc6") 50% fixed;
   background-size: cover;
 }
 
@@ -183,7 +187,10 @@ footer a, footer a:link {
   <div class="wrapper">
   <form action="<?php echo base_url('login/proses_login')?>" class="login" method="post">
 
-    <p class="title"><i class="fa fa-sign-in" aria-hidden="true"></i> Log in</p>
+  <p class="title" style="display: flex; justify-content: center; align-items: center;">
+  <i class="fa fa-sign-in" aria-hidden="true"></i> Login
+</p>
+
     <?php if($this->session->flashdata('msg')){ ?>
       <div class="alert alert-warning alert-dismissible">
           <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -205,7 +212,7 @@ footer a, footer a:link {
     <!-- <a href="#">Forgot your password?</a> -->
     <button>
       <!-- <i class="spinner"></i> -->
-      <span class="state"><i class="fa fa-sign-in" aria-hidden="true"></i> Log in</span>
+      <span class="state"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</span>
     </button>
   </form>
   <!-- <footer><a target="blank" href="http://unsadacoder.or.id">UnsadaCoder.or.id</a></footer> -->

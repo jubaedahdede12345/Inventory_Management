@@ -293,7 +293,6 @@ class Admin extends CI_Controller{
 
   public function proses_databarang_masuk_insert()
   {
-    $this->form_validation->set_rules('lokasi','Lokasi','required');
     $this->form_validation->set_rules('kode_barang','Kode Barang','required');
     $this->form_validation->set_rules('nama_barang','Nama Barang','required');
     $this->form_validation->set_rules('jumlah','Jumlah','required');
@@ -302,25 +301,21 @@ class Admin extends CI_Controller{
     {
       $id_transaksi = $this->input->post('id_transaksi',TRUE);
       $tanggal      = $this->input->post('tanggal',TRUE);
-      $lokasi       = $this->input->post('lokasi',TRUE);
       $kode_barang  = $this->input->post('kode_barang',TRUE);
       $nama_barang  = $this->input->post('nama_barang',TRUE);
-      $satuan       = $this->input->post('satuan',TRUE);
       $jumlah       = $this->input->post('jumlah',TRUE);
 
       $data = array(
             'id_transaksi' => $id_transaksi,
             'tanggal'      => $tanggal,
-            'lokasi'       => $lokasi,
             'kode_barang'  => $kode_barang,
             'nama_barang'  => $nama_barang,
-            'satuan'       => $satuan,
             'jumlah'       => $jumlah
       );
       $this->M_admin->insert('tb_barang_masuk',$data);
 
-      $this->session->set_flashdata('msg_berhasil','Data Barang Berhasil Ditambahkan');
-      redirect(base_url('admin/form_barangmasuk'));
+      // $this->session->set_flashdata('msg_berhasil','Data Barang Berhasil Ditambahkan');
+      redirect(base_url('admin/tabel_barangmasuk'));
     }else {
       $data['list_satuan'] = $this->M_admin->select('tb_satuan');
       $this->load->view('admin/form_barangmasuk/form_insert',$data);
@@ -329,7 +324,6 @@ class Admin extends CI_Controller{
 
   public function proses_databarang_masuk_update()
   {
-    $this->form_validation->set_rules('lokasi','Lokasi','required');
     $this->form_validation->set_rules('kode_barang','Kode Barang','required');
     $this->form_validation->set_rules('nama_barang','Nama Barang','required');
     $this->form_validation->set_rules('jumlah','Jumlah','required');
@@ -338,20 +332,16 @@ class Admin extends CI_Controller{
     {
       $id_transaksi = $this->input->post('id_transaksi',TRUE);
       $tanggal      = $this->input->post('tanggal',TRUE);
-      $lokasi       = $this->input->post('lokasi',TRUE);
       $kode_barang  = $this->input->post('kode_barang',TRUE);
       $nama_barang  = $this->input->post('nama_barang',TRUE);
-      $satuan       = $this->input->post('satuan',TRUE);
       $jumlah       = $this->input->post('jumlah',TRUE);
 
       $where = array('id_transaksi' => $id_transaksi);
       $data = array(
             'id_transaksi' => $id_transaksi,
             'tanggal'      => $tanggal,
-            'lokasi'       => $lokasi,
             'kode_barang'  => $kode_barang,
             'nama_barang'  => $nama_barang,
-            'satuan'       => $satuan,
             'jumlah'       => $jumlah
       );
       $this->M_admin->update('tb_barang_masuk',$data,$where);
@@ -365,6 +355,94 @@ class Admin extends CI_Controller{
       // END DATA BARANG MASUK
   ####################################
 
+  public function form_supplier()
+  {
+    $data['list_supplier'] = $this->M_admin->select('tb_supplier');
+    $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user',$this->session->userdata('name'));
+    $this->load->view('admin/form_supplier/form_insert',$data);
+  }
+
+  public function tabel_supplier()
+  {
+    $data = array(
+              'list_data' => $this->M_admin->select('tb_supplier'),
+              'avatar'    => $this->M_admin->get_data_gambar('tb_upload_gambar_user',$this->session->userdata('name'))
+            );
+    $this->load->view('admin/tabel/tabel_supplier',$data);
+  }
+
+  public function update_supplier($id_supplier)
+  {
+    $where = array('id_supplier' => $id_supplier);
+    $data['data_supplier'] = $this->M_admin->get_data('tb_supplier',$where);
+    $data['list_supplier'] = $this->M_admin->select('tb_supplier');
+    $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user',$this->session->userdata('name'));
+    $this->load->view('admin/form_supplier/form_update',$data);
+  }
+
+  public function delete_supplier($id_supplier)
+  {
+    $where = array('id_supplier' => $id_supplier);
+    $this->M_admin->delete('tb_supplier',$where);
+    redirect(base_url('admin/tabel_supplier'));
+  }
+
+  public function proses_supplier_masuk_insert()
+  {
+    $this->form_validation->set_rules('nama_supplier',' Nama Supplier','required');
+    $this->form_validation->set_rules('alamat_supplier','Alamat Supplier','required');
+    $this->form_validation->set_rules('telepon_supplier','Telepon Supplier','required');
+
+    if($this->form_validation->run() == TRUE)
+    {
+      $id_supplier = $this->input->post('id_supplier',TRUE);
+      $nama_supplier  = $this->input->post('nama_supplier',TRUE);
+      $alamat_supplier  = $this->input->post('alamat_supplier',TRUE);
+      $telepon_supplier       = $this->input->post('telepon_supplier',TRUE);
+
+      $data = array(
+            'id_supplier' => $id_supplier,
+            'nama_supplier'  => $nama_supplier,
+            'alamat_supplier'  => $alamat_supplier,
+            'telepon_supplier'       => $telepon_supplier
+      );
+      $this->M_admin->insert('tb_supplier',$data);
+
+      // $this->session->set_flashdata('msg_berhasil','Data Barang Berhasil Ditambahkan');
+      redirect(base_url('admin/tabel_supplier'));
+    }else {
+      $data['list_supplier'] = $this->M_admin->select('tb_supplier');
+      $this->load->view('admin/form_supplier/form_insert',$data);
+    }
+  }
+
+  public function proses_supplier_masuk_update()
+  {
+    $this->form_validation->set_rules('nama_supplier',' Nama Supplier','required');
+    $this->form_validation->set_rules('alamat_supplier','Alamat Supplier','required');
+    $this->form_validation->set_rules('telepon_supplier','Telepon Supplier','required');
+
+    if($this->form_validation->run() == TRUE)
+    {
+      $id_supplier = $this->input->post('id_supplier',TRUE);
+      $nama_supplier  = $this->input->post('nama_supplier',TRUE);
+      $alamat_supplier  = $this->input->post('alamat_supplier',TRUE);
+      $telepon_supplier       = $this->input->post('telepon_supplier',TRUE);
+
+      $where = array('id_supplier' => $id_supplier);
+      $data = array(
+            'id_supplier' => $id_supplier,
+            'nama_supplier'  => $nama_supplier,
+            'alamat_supplier'       => $alamat_supplier,
+            'telepon_supplier'       => $telepon_supplier
+      );
+      $this->M_admin->update('tb_supplier',$data,$where);
+      $this->session->set_flashdata('msg_berhasil','Data Barang Berhasil Diupdate');
+      redirect(base_url('admin/tabel_supplier'));
+    }else{
+      $this->load->view('admin/form_supplier/form_update');
+    }
+  }
 
   ####################################
               // SATUAN
@@ -386,7 +464,7 @@ class Admin extends CI_Controller{
   public function update_satuan()
   {
     $uri = $this->uri->segment(3);
-    $where = array('id_satuan' => $uri);
+    $where = array('id_barang' => $uri);
     $data['data_satuan'] = $this->M_admin->get_data('tb_satuan',$where);
     $data['avatar'] = $this->M_admin->get_data_gambar('tb_upload_gambar_user',$this->session->userdata('name'));
     $this->load->view('admin/form_satuan/form_update',$data);
@@ -395,28 +473,31 @@ class Admin extends CI_Controller{
   public function delete_satuan()
   {
     $uri = $this->uri->segment(3);
-    $where = array('id_satuan' => $uri);
+    $where = array('id_barang' => $uri);
     $this->M_admin->delete('tb_satuan',$where);
     redirect(base_url('admin/tabel_satuan'));
   }
 
   public function proses_satuan_insert()
   {
-    $this->form_validation->set_rules('kode_satuan','Kode Satuan','trim|required|max_length[100]');
-    $this->form_validation->set_rules('nama_satuan','Nama Satuan','trim|required|max_length[100]');
+    $this->form_validation->set_rules('id_barang','Id Barang','trim|required|max_length[100]');
+    $this->form_validation->set_rules('nama_barang','Nama Barang','trim|required|max_length[100]');
+    $this->form_validation->set_rules('stock_barang','Stock Barang','trim|required|max_length[100]');
 
     if($this->form_validation->run() ==  TRUE)
     {
-      $kode_satuan = $this->input->post('kode_satuan' ,TRUE);
-      $nama_satuan = $this->input->post('nama_satuan' ,TRUE);
+      $id_barang = $this->input->post('id_barang' ,TRUE);
+      $nama_barang = $this->input->post('nama_barang' ,TRUE);
+      $stock_barang = $this->input->post('stock_barang' ,TRUE);
 
       $data = array(
-            'kode_satuan' => $kode_satuan,
-            'nama_satuan' => $nama_satuan
+            'id_barang' => $id_barang,
+            'nama_barang' => $nama_barang,
+            'stock_barang' => $stock_barang
       );
       $this->M_admin->insert('tb_satuan',$data);
 
-      $this->session->set_flashdata('msg_berhasil','Data satuan Berhasil Ditambahkan');
+      $this->session->set_flashdata('msg_berhasil','Data Stock Barang Berhasil Ditambahkan');
       redirect(base_url('admin/form_satuan'));
     }else {
       $this->load->view('admin/form_satuan/form_insert');
@@ -425,26 +506,27 @@ class Admin extends CI_Controller{
 
   public function proses_satuan_update()
   {
-    $this->form_validation->set_rules('kode_satuan','Kode Satuan','trim|required|max_length[100]');
-    $this->form_validation->set_rules('nama_satuan','Nama Satuan','trim|required|max_length[100]');
+    $this->form_validation->set_rules('id_barang','Id Barang','trim|required|max_length[100]');
+    $this->form_validation->set_rules('nama_barang','Nama Barang','trim|required|max_length[100]');
+    $this->form_validation->set_rules('stock_barang','Stock Barang','trim|required|max_length[100]');
 
     if($this->form_validation->run() ==  TRUE)
     {
-      $id_satuan   = $this->input->post('id_satuan' ,TRUE);
-      $kode_satuan = $this->input->post('kode_satuan' ,TRUE);
-      $nama_satuan = $this->input->post('nama_satuan' ,TRUE);
+      $id_barang   = $this->input->post('id_barang' ,TRUE);
+      $nama_barang = $this->input->post('nama_barang' ,TRUE);
+      $stock_barang = $this->input->post('stock_barang' ,TRUE);
 
       $where = array(
-            'id_satuan' => $id_satuan
+            'id_barang' => $id_barang
       );
 
       $data = array(
-            'kode_satuan' => $kode_satuan,
-            'nama_satuan' => $nama_satuan
+            'nama_barang' => $nama_barang,
+            'stock_barang' => $stock_barang
       );
       $this->M_admin->update('tb_satuan',$data,$where);
 
-      $this->session->set_flashdata('msg_berhasil','Data satuan Berhasil Di Update');
+      $this->session->set_flashdata('msg_berhasil','Data Stock Barang Berhasil Di Update');
       redirect(base_url('admin/tabel_satuan'));
     }else {
       $this->load->view('admin/form_satuan/form_update');

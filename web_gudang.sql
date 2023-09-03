@@ -103,16 +103,16 @@ INSERT INTO `tb_barang_masuk` (`id_transaksi`, `tanggal`, `lokasi`, `kode_barang
 --
 
 CREATE TABLE `tb_satuan` (
-  `id_satuan` int(11) NOT NULL,
-  `kode_satuan` varchar(100) NOT NULL,
-  `nama_satuan` varchar(100) NOT NULL
+  `id_barang` int(11) NOT NULL,
+  `nama_barang` varchar(100) NOT NULL,
+  `stock_barang` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tb_satuan`
 --
 
-INSERT INTO `tb_satuan` (`id_satuan`, `kode_satuan`, `nama_satuan`) VALUES
+INSERT INTO `tb_satuan` (`id_barang`, `nama_barang`, `stock_barang`) VALUES
 (1, 'Dus', 'Dus'),
 (2, 'Pcs', 'Pcs'),
 (5, 'Pack', 'Pack');
@@ -186,7 +186,7 @@ ALTER TABLE `tb_barang_masuk`
 -- Indexes for table `tb_satuan`
 --
 ALTER TABLE `tb_satuan`
-  ADD PRIMARY KEY (`id_satuan`);
+  ADD PRIMARY KEY (`id_barang`);
 
 --
 -- Indexes for table `tb_upload_gambar_user`
@@ -213,7 +213,7 @@ ALTER TABLE `tb_barang_keluar`
 -- AUTO_INCREMENT for table `tb_satuan`
 --
 ALTER TABLE `tb_satuan`
-  MODIFY `id_satuan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `tb_upload_gambar_user`
 --

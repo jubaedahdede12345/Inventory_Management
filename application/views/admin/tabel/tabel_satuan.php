@@ -1,9 +1,13 @@
+<?php
+require 'function.php'; // Mengimpor file koneksi
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Table Satuan</title>
+  <title>Web Inventory | Table Stock Barang</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -33,7 +37,7 @@
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue-light sidebar-mini">
 <div class="wrapper">
 
   <header class="main-header">
@@ -42,7 +46,7 @@
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Admin</b>LTE</span>
+      <span class="logo-lg"><b>IntMant</b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -137,7 +141,7 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="<?= base_url('admin/form_barangmasuk')?>"><i class="fa fa-circle-o"></i> Tambah Data Barang Masuk</a></li>
-            <li><a href="<?= base_url('admin/form_satuan')?>"><i class="fa fa-circle-o"></i> Tambah Satuan Barang</a></li>
+            <li><a href="<?= base_url('admin/form_satuan')?>"><i class="fa fa-circle-o"></i> Tambah Data Stock Barang</a></li>
           </ul>
         </li>
         <li class="treeview active">
@@ -148,9 +152,10 @@
                 </span>
           </a>
           <ul class="treeview-menu">
+            <li><a href="<?= base_url('admin/tabel_supplier')?>"><i class="fa fa-circle-o"></i> Tabel Supplier</a></li>
             <li><a href="<?= base_url('admin/tabel_barangmasuk')?>"><i class="fa fa-circle-o"></i> Tabel Barang Masuk</a></li>
             <li><a href="<?= base_url('admin/tabel_barangkeluar')?>"><i class="fa fa-circle-o"></i> Tabel Barang Keluar</a></li>
-            <li class="active"><a href="<?= base_url('admin/tabel_satuan')?>"><i class="fa fa-circle-o"></i> Tabel Satuan</a></li>
+            <li class="active"><a href="<?= base_url('admin/tabel_satuan')?>"><i class="fa fa-circle-o"></i> Tabel Stock Barang</a></li>
           </ul>
         </li>
         <li>
@@ -173,12 +178,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Tabel Satuan
+        Tabel Stock Barang
       </h1>
       <ol class="breadcrumb">
         <li><a href="<?=base_url('admin')?>"><i class="fa fa-dashboard"></i> Home</a></li>
         <li>Tables</li>
-        <li class="active"><a href="<?=base_url('admin/tabel_satuan')?>">Tabel Satuan</a></li>
+        <li class="active"><a href="<?=base_url('admin/tabel_satuan')?>">Tabel Stock Barang</a></li>
       </ol>
     </section>
 
@@ -190,8 +195,25 @@
           <!-- /.box -->
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title"><i class="fa fa-table" aria-hidden="true"></i> Stok Barang Masuk</h3>
+              <h3 class="box-title"><i class="fa fa-table" aria-hidden="true"></i> Stok Barang</h3>
             </div>
+           
+            <?php
+                $ambildatastock_barang = mysqli_query($conn,"select * from tb_satuan where stock_barang < 1");
+
+                while($fetch=mysqli_fetch_array($ambildatastock_barang)){
+                    $nama_barang = $fetch['nama_barang'];
+                
+            ?>
+            <div class="alert alert-danger alert-dismissible">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              <strong>Perhatian!</strong> Stock <?=$nama_barang;?> Telah Habis
+            </div>
+
+            <?php
+                }
+            ?>
+
             <!-- /.box-header -->
             <div class="box-body">
 
@@ -202,13 +224,14 @@
                </div>
               <?php } ?>
 
-              <a href="<?=base_url('admin/form_satuan')?>" style="margin-bottom:10px;" type="button" class="btn btn-primary" name="tambah_data"><i class="fa fa-plus-circle" aria-hidden="true"></i> Tambah Data</a>
+              <a href="<?=base_url('admin/form_satuan')?>" style="margin-bottom:10px;" type="button" class="btn btn-primary" name="tambah_data"><i class="fa fa-plus-circle" aria-hidden="true"></i> Tambah Data Stock Barang</a>
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
                   <th>No</th>
-                  <th>Kode Satuan</th>
-                  <th>Nama Satuan</th>
+                  <th>Kode Barang</th>
+                  <th>Nama Barang</th>
+                  <th>Stok Barang</th>
                   <th>Update</th>
                   <th>Delete</th>
                 </tr>
@@ -219,10 +242,11 @@
                   <?php $no = 1;?>
                   <?php foreach($list_data as $dd): ?>
                     <td><?=$no?></td>
-                    <td><?=$dd->kode_satuan?></td>
-                    <td><?=$dd->nama_satuan?></td>
-                    <td><a type="button" class="btn btn-info"  href="<?=base_url('admin/update_satuan/'.$dd->id_satuan)?>" name="btn_update" style="margin:auto;"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
-                    <td><a type="button" class="btn btn-danger btn-delete"  href="<?=base_url('admin/delete_satuan/'.$dd->id_satuan)?>" name="btn_delete" style="margin:auto;"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                    <td><?=$dd->id_barang?></td>
+                    <td><?=$dd->nama_barang?></td>
+                    <td><?=$dd->stock_barang?></td>
+                    <td><a type="button" class="btn btn-info"  href="<?=base_url('admin/update_satuan/'.$dd->id_barang)?>" name="btn_update" style="margin:auto;"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
+                    <td><a type="button" class="btn btn-danger btn-delete"  href="<?=base_url('admin/delete_satuan/'.$dd->id_barang)?>" name="btn_delete" style="margin:auto;"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
                 </tr>
               <?php $no++; ?>
               <?php endforeach;?>
@@ -230,13 +254,6 @@
                     <td colspan="7" align="center"><strong>Data Kosong</strong></td>
               <?php } ?>
                 </tbody>
-                <tfoot>
-                <tr>
-                  <th>No</th>
-                  <th>Kode Satuan</th>
-                  <th>Nama Satuan</th>
-                </tr>
-                </tfoot>
               </table>
             </div>
             <!-- /.box-body -->
@@ -246,18 +263,15 @@
         <!-- /.col -->
       </div>
       <!-- /.row -->
-    </section>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
-  <footer class="main-footer">
-    <div class="pull-right hidden-xs">
-      <b>Version</b> 2.4.0
-    </div>
-    <strong>Copyright &copy; <?=date('Y')?></strong>
-    
-  </footer>
-
+      </section>
+        <!-- /.content -->
+      </div>
+      <!-- /.content-wrapper -->
+      <footer class="main-footer" style="text-align: center;">
+        <strong>Copyright &copy;
+          <?= date('Y') ?>
+        </strong>
+      </footer>
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Create the tabs -->
@@ -467,9 +481,8 @@
 <!-- FastClick -->
 <script src="<?php echo base_url()?>assets/web_admin/bower_components/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
-<script src="<?php echo base_url()?>assets/web_admin/dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="<?php echo base_url()?>assets/web_admin/dist/js/demo.js"></script>
+<script src="<?php echo base_url()?>assets/web_admin/dist/js/AdminLTE.min.js"></script>
+
 <!-- page script -->
 <script>
 jQuery(document).ready(function($){

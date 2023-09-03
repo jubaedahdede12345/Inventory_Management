@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Table Barang Masuk</title>
+  <title>Web Inventory | Table Barang Masuk</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -33,7 +33,7 @@
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue-light sidebar-mini">
 <div class="wrapper">
 
   <header class="main-header">
@@ -42,7 +42,7 @@
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Admin</b>LTE</span>
+      <span class="logo-lg"><b>IntMant</b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -148,9 +148,10 @@
                 </span>
           </a>
           <ul class="treeview-menu">
+            <li><a href="<?= base_url('admin/tabel_supplier')?>"><i class="fa fa-circle-o"></i> Tabel Supplier</a></li>
             <li class="active"><a href="<?= base_url('admin/tabel_barangmasuk')?>"><i class="fa fa-circle-o"></i> Tabel Barang Masuk</a></li>
             <li><a href="<?= base_url('admin/tabel_barangkeluar')?>"><i class="fa fa-circle-o"></i> Tabel Barang Keluar</a></li>
-            <li><a href="<?= base_url('admin/tabel_satuan')?>"><i class="fa fa-circle-o"></i> Tabel Satuan</a></li>
+            <li><a href="<?= base_url('admin/tabel_satuan')?>"><i class="fa fa-circle-o"></i> Tabel Stock Barang</a></li>
           </ul>
         </li>
         <li class="header">LABELS</li>
@@ -215,10 +216,8 @@
                   <th>No</th>
                   <th>ID_Transaksi</th>
                   <th>Tanggal</th>
-                  <th>Lokasi</th>
                   <th>Kode Barang</th>
                   <th>Nama Barang</th>
-                  <th>Satuan</th>
                   <th>Jumlah</th>
                   <th>Update</th>
                   <th>Delete</th>
@@ -233,10 +232,8 @@
                     <td><?=$no?></td>
                     <td><?=$dd->id_transaksi?></td>
                     <td><?=$dd->tanggal?></td>
-                    <td><?=$dd->lokasi?></td>
                     <td><?=$dd->kode_barang?></td>
                     <td><?=$dd->nama_barang?></td>
-                    <td><?=$dd->satuan?></td>
                     <td><?=$dd->jumlah?></td>
                     <td><a type="button" class="btn btn-info"  href="<?=base_url('admin/update_barang/'.$dd->id_transaksi)?>" name="btn_update" style="margin:auto;"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
                     <td><a type="button" class="btn btn-danger btn-delete"  href="<?=base_url('admin/delete_barang/'.$dd->id_transaksi)?>" name="btn_delete" style="margin:auto;"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
@@ -248,18 +245,6 @@
                     <td colspan="7" align="center"><strong>Data Kosong</strong></td>
               <?php } ?>
                 </tbody>
-                <tfoot>
-                <tr>
-                  <th>No</th>
-                  <th>ID_transaksi</th>
-                  <th>Tanggal</th>
-                  <th>Lokasi</th>
-                  <th>Kode Barang</th>
-                  <th>Nama Barang</th>
-                  <th>Satuan</th>
-                  <th>Jumlah</th>
-                </tr>
-                </tfoot>
               </table>
             </div>
             <!-- /.box-body -->
@@ -272,18 +257,15 @@
         <!-- /.col -->
       </div>
       <!-- /.row -->
-    </section>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
-  <footer class="main-footer">
-    <div class="pull-right hidden-xs">
-      <b>Version</b> 2.4.0
-    </div>
-    <strong>Copyright &copy; <?=date('Y')?></strong>
-    
-  </footer>
-
+      </section>
+        <!-- /.content -->
+      </div>
+      <!-- /.content-wrapper -->
+      <footer class="main-footer" style="text-align: center;">
+        <strong>Copyright &copy;
+          <?= date('Y') ?>
+        </strong>
+      </footer>
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Create the tabs -->
@@ -493,9 +475,8 @@
 <!-- FastClick -->
 <script src="<?php echo base_url()?>assets/web_admin/bower_components/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
-<script src="<?php echo base_url()?>assets/web_admin/dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="<?php echo base_url()?>assets/web_admin/dist/js/demo.js"></script>
+<script src="<?php echo base_url()?>assets/web_admin/dist/js/AdminLTE.min.js"></script>
+
 <!-- page script -->
 <script>
 jQuery(document).ready(function($){

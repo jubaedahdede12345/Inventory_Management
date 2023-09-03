@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Web Gudang | Satuan Barang</title>
+  <title>Web Inventory | Stock Barang</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -28,7 +28,7 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue-light sidebar-mini">
 <div class="wrapper">
 
   <header class="main-header">
@@ -37,7 +37,7 @@
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Admin</b>LTE</span>
+      <span class="logo-lg"><b>IntMant</b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -133,7 +133,7 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="<?= base_url('admin/form_barangmasuk')?>"><i class="fa fa-circle-o"></i> Tambah Data Barang Masuk</a></li>
-            <li class="active"><a href="<?= base_url('admin/form_satuan')?>"><i class="fa fa-circle-o"></i> Tambah Satuan Barang</a></li>
+            <li class="active"><a href="<?= base_url('admin/form_satuan')?>"><i class="fa fa-circle-o"></i> Tambah Data Stock Barang</a></li>
           </ul>
         </li>
         <li class="treeview ">
@@ -144,9 +144,10 @@
                 </span>
           </a>
           <ul class="treeview-menu">
+            <li><a href="<?= base_url('admin/tabel_supplier')?>"><i class="fa fa-circle-o"></i> Tabel Supplier</a></li>
             <li><a href="<?= base_url('admin/tabel_barangmasuk')?>"><i class="fa fa-circle-o"></i> Tabel Barang Masuk</a></li>
             <li><a href="<?= base_url('admin/tabel_barangkeluar')?>"><i class="fa fa-circle-o"></i> Tabel Barang Keluar</a></li>
-            <li><a href="<?= base_url('admin/tabel_satuan')?>"><i class="fa fa-circle-o"></i> Tabel Satuan</a></li>
+            <li><a href="<?= base_url('admin/tabel_satuan')?>"><i class="fa fa-circle-o"></i> Tabel Stock Barang</a></li>
           </ul>
         </li>
         <li>
@@ -168,12 +169,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Input Satuan Barang
+        Input Stock Barang
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="#">Forms</a></li>
-        <li class="active">Satuan Barang</li>
+        <li class="active">Stock Barang</li>
       </ol>
     </section>
 
@@ -186,7 +187,7 @@
             <!-- general form elements -->
           <div class="box box-primary" style="width:94%;">
             <div class="box-header with-border">
-              <h3 class="box-title"><i class="fa fa-archive" aria-hidden="true"></i> Tambah Satuan Barang</h3>
+              <h3 class="box-title"><i class="fa fa-archive" aria-hidden="true"></i> Tambah Stock Barang</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
@@ -209,12 +210,16 @@
 
               <div class="box-body">
                 <div class="form-group" style="display:inline-block;">
-                  <label for="kode_satuan" style="width:87%;margin-left: 12px;">Kode Satuan</label>
-                  <input type="text" name="kode_satuan" style="width: 90%;margin-right: 67px;margin-left: 11px;" class="form-control" id="kode_satuan" placeholder="Kode Satuan">
+                  <label for="kode_barang" style="width:87%;margin-left: 12px;">Kode Barang</label>
+                  <input type="text" name="kode_barang" style="width: 90%;margin-right: 67px;margin-left: 11px;" class="form-control" id="kode_barang" placeholder="Kode Barang">
                 </div>
                 <div class="form-group" style="display:inline-block;">
-                  <label for="nama_satuan" style="width:73%;">Nama Satuan</label>
-                  <input type="text" name="nama_satuan" style="width:90%;margin-right: 67px;" class="form-control" id="nama_satuan" placeholder="Nama Satuan">
+                  <label for="nama_barang" style="width:73%;">Nama Barang</label>
+                  <input type="text" name="nama_barang" style="width:90%;margin-right: 67px;" class="form-control" id="nama_barang" placeholder="Nama Barang">
+              </div>
+              <div class="form-group" style="display:inline-block;">
+                  <label for="stock_barang" style="width:73%;">Stock Barang</label>
+                  <input type="text" name="stock_barang" style="width:90%;margin-right: 67px;" class="form-control" id="stock_barang" placeholder="Stock Barang">
               </div>
               <div class="form-group" style="display:inline-block;">
                 <button type="reset" class="btn btn-basic" name="btn_reset" style="width:95px;margin-left:20px;"><i class="fa fa-eraser" aria-hidden="true"></i> Reset</button>
@@ -259,17 +264,15 @@
         <!--/.col (right) -->
       </div>
       <!-- /.row -->
-    </section>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
-  <footer class="main-footer">
-    <div class="pull-right hidden-xs">
-      <b>Version</b> 2.4.0
-    </div>
-    <strong>Copyright &copy; <?=date('Y')?></strong>
-    
-  </footer>
+      </section>
+        <!-- /.content -->
+      </div>
+      <!-- /.content-wrapper -->
+      <footer class="main-footer" style="text-align: center;">
+        <strong>Copyright &copy;
+          <?= date('Y') ?>
+        </strong>
+      </footer>
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
@@ -474,7 +477,7 @@
   <!-- FastClick -->
   <script src="<?php echo base_url()?>assets/web_admin/bower_components/fastclick/lib/fastclick.js"></script>
   <!-- AdminLTE App -->
-  <script src="<?php echo base_url()?>assets/web_admin/dist/js/adminlte.min.js"></script>
+  <script src="<?php echo base_url()?>assets/web_admin/dist/js/AdminLTE.min.js"></script>
   <!-- AdminLTE for demo purposes -->
   <script src="<?php echo base_url()?>assets/web_admin/dist/js/demo.js"></script>
   </body>

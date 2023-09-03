@@ -22,7 +22,7 @@ class Report extends CI_Controller
     $pdf->SetSubject('Barang Keluar');
 
     //header Data
-    $pdf->SetHeaderData('unsada.jpg',30,'Laporan Data','Barang Keluar',array(203, 58, 44),array(0, 0, 0));
+    $pdf->SetHeaderData('itg.png',30,'Laporan Data','Barang Keluar',array(203, 58, 44),array(0, 0, 0));
     $pdf->SetFooterData(array(255, 255, 255), array(255, 255, 255));
 
 
@@ -116,7 +116,7 @@ class Report extends CI_Controller
     $pdf->SetSubject('Barang Keluar');
 
     //header Data
-    $pdf->SetHeaderData('unsada.jpg',30,'Laporan Data','Barang Keluar',array(203, 58, 44),array(0, 0, 0));
+    $pdf->SetHeaderData('itg.png',30,'Laporan Data','Barang Keluar',array(203, 58, 44),array(0, 0, 0));
     $pdf->SetFooterData(array(255, 255, 255), array(255, 255, 255));
 
 
@@ -157,10 +157,8 @@ class Report extends CI_Controller
             <th style="width:110px" align="center">ID Transaksi</th>
             <th style="width:110px" align="center">Tanggal Masuk</th>
             <th style="width:110px" align="center">Tanggal Keluar</th>
-            <th style="width:130px" align="center">Lokasi</th>
             <th style="width:140px" align="center">Kode Barang</th>
             <th style="width:140px" align="center">Nama Barang</th>
-            <th style="width:80px" align="center">Satuan</th>
             <th style="width:80px" align="center">Jumlah</th>
           </tr>';
 
@@ -172,15 +170,15 @@ class Report extends CI_Controller
             $html .= '<td align="center">'.$d->id_transaksi.'</td>';
             $html .= '<td align="center">'.$d->tanggal_masuk.'</td>';
             $html .= '<td align="center">'.$d->tanggal_keluar.'</td>';
-            $html .= '<td align="center">'.$d->lokasi.'</td>';
+            // $html .= '<td align="center">'.$d->lokasi.'</td>';
             $html .= '<td align="center">'.$d->kode_barang.'</td>';
             $html .= '<td align="center">'.$d->nama_barang.'</td>';
-            $html .= '<td align="center">'.$d->satuan.'</td>';
+            // $html .= '<td align="center">'.$d->satuan.'</td>';
             $html .= '<td align="center">'.$d->jumlah.'</td>';
             $html .= '</tr>';
 
             $html .= '<tr>';
-            $html .= '<td align="center" colspan="8"><b>Jumlah</b></td>';
+            $html .= '<td align="center" colspan="6"><b>Jumlah</b></td>';
             $html .= '<td align="center">'.$d->jumlah.'</td>';
             $html .= '</tr>';
             $no++;
